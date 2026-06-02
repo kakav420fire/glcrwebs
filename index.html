@@ -1,231 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Tung Tung Toilet Time</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;800&display=swap');
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Nunito',sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:white;min-height:100vh;overflow-x:hidden}
-.stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
-.star{position:absolute;border-radius:50%;background:white;animation:twinkle 2s infinite alternate}
-@keyframes twinkle{from{opacity:0.2}to{opacity:1}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
-@keyframes glow{0%,100%{text-shadow:0 0 15px #c8a800,0 0 30px #c8a800}50%{text-shadow:0 0 30px #e6c000,0 0 60px #b08000}}
-@keyframes crownBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-6px)}}
-@keyframes rainbow{0%{color:#ff4444}25%{color:#ffcc00}50%{color:#44ff88}75%{color:#44aaff}100%{color:#ff4444}}
-@keyframes shake{0%,100%{transform:rotate(0)}25%{transform:rotate(-2deg)}75%{transform:rotate(2deg)}}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.4}}
-@keyframes slideIn{from{transform:translateX(-40px);opacity:0}to{transform:translateX(0);opacity:1}}
-@keyframes slideInR{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}
-@keyframes confettiFall{0%{transform:translateY(-20px) rotate(0);opacity:1}100%{transform:translateY(180px) rotate(720deg);opacity:0}}
-.container{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:16px}
+  :root {
+    --bg: #1a0a2e;
+    --bg2: #2d1b4e;
+    --card: #3d2566;
+    --accent: #ff6b35;
+    --accent2: #ffd700;
+    --accent3: #00ff88;
+    --accent4: #ff3399;
+    --text: #fff;
+    --muted: #b8a8d8;
+    --border: rgba(255,255,255,0.15);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { width: 100%; min-height: 100vh; background: var(--bg); color: var(--text); font-family: 'Nunito', sans-serif; overflow-x: hidden; }
 
-.vs-header{text-align:center;padding:28px 12px 16px}
-.vs-row{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
-.vs-name{font-family:'Bangers',cursive;letter-spacing:3px;position:relative;font-size:clamp(38px,9vw,80px);line-height:1.1}
-.mustafa-wrap{position:relative;text-align:center;padding-top:52px}
-.crown{position:absolute;top:0;left:50%;transform:translateX(-50%);font-size:clamp(36px,8vw,52px);animation:crownBounce 1.5s ease-in-out infinite;filter:drop-shadow(0 0 8px #ffd700)}
-.mustafa-name{color:#e6b800;animation:glow 2.5s ease-in-out infinite,float 3s ease-in-out infinite}
-.bryson-wrap{text-align:center}
-.bryson-name{color:#888;text-decoration:line-through;text-decoration-color:#ff4444;text-decoration-thickness:4px;animation:float 3s ease-in-out infinite 0.5s;opacity:0.65}
-.vs-badge{font-family:'Bangers',cursive;font-size:clamp(44px,10vw,60px);color:#ff4444;text-shadow:2px 2px 0 #660000;animation:pulse 1s infinite;flex-shrink:0}
+  /* animated bg */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse at 20% 50%, #3d1a6e44 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, #1a3d6e44 0%, transparent 60%);
+    pointer-events: none;
+  }
 
-.hero{background:rgba(200,160,0,0.12);border:1.5px solid rgba(200,160,0,0.35);border-radius:20px;padding:clamp(18px,4vw,30px);text-align:center;margin:16px 0;position:relative;overflow:hidden}
-.hero h1{font-family:'Bangers',cursive;font-size:clamp(26px,6.5vw,58px);color:#d4a800;letter-spacing:2px;animation:glow 2.5s infinite;line-height:1.15}
-.hero .sub{font-size:clamp(13px,3vw,17px);color:#ffe88a;margin-top:8px;font-weight:700}
-.emoji-row{font-size:clamp(22px,5vw,30px);margin:8px 0;animation:float 2s ease-in-out infinite}
+  #app { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; padding: 12px; min-height: 100vh; }
 
-.section{margin:18px 0;border-radius:18px;padding:clamp(16px,4vw,24px)}
-.section-title{font-family:'Bangers',cursive;font-size:clamp(24px,5vw,34px);letter-spacing:2px;margin-bottom:14px;text-align:center}
+  /* SCREENS */
+  .screen { display: none; }
+  .screen.active { display: block; }
 
-.promises{background:rgba(0,180,90,0.12);border:1.5px solid rgba(0,180,90,0.35)}
-.promise-card{display:flex;align-items:flex-start;gap:12px;background:rgba(255,255,255,0.06);border-radius:12px;padding:14px;margin:8px 0;animation:slideIn 0.5s ease both;transition:transform 0.2s}
-.promise-card:hover{transform:translateX(6px)}
-.p-icon{font-size:clamp(28px,6vw,38px);flex-shrink:0;animation:float 3s ease-in-out infinite}
-.p-text h3{font-size:clamp(15px,3.5vw,19px);font-weight:800;color:#00e080}
-.p-text p{font-size:clamp(12px,2.8vw,14px);color:#bbb;margin-top:3px;line-height:1.4}
+  /* HEADER */
+  .game-title {
+    font-family: 'Bangers', cursive;
+    font-size: 2.4rem;
+    text-align: center;
+    color: var(--accent2);
+    text-shadow: 3px 3px 0 var(--accent), 6px 6px 0 #6b0;
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .game-sub {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
 
-.timbits{background:rgba(180,70,0,0.18);border:1.5px solid rgba(220,120,0,0.45);text-align:center}
-.timbit-row{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:10px 0}
-.timbit{font-size:clamp(28px,7vw,44px);animation:float 2s ease-in-out infinite}
+  /* CARDS */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+  .card-title {
+    font-family: 'Bangers', cursive;
+    font-size: 1.1rem;
+    color: var(--accent2);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
 
-.cons{background:rgba(220,0,0,0.12);border:1.5px solid rgba(220,50,50,0.45)}
-.bryson-label{font-family:'Bangers',cursive;font-size:clamp(18px,4vw,24px);color:#ff5555;text-align:center;margin-bottom:12px;animation:blink 2s infinite}
-.con-card{display:flex;align-items:flex-start;gap:12px;background:rgba(255,0,0,0.07);border-radius:10px;border-left:3px solid #ff4444;border-top-left-radius:0;border-bottom-left-radius:0;padding:12px;margin:7px 0;animation:slideInR 0.5s ease both}
-.c-icon{font-size:clamp(22px,5vw,28px);flex-shrink:0;animation:shake 3s ease-in-out infinite}
-.c-text h3{font-size:clamp(14px,3.2vw,17px);font-weight:800;color:#ff8888}
-.c-text p{font-size:clamp(12px,2.6vw,14px);color:#bbb;margin-top:3px;line-height:1.4}
+  /* STAT BARS */
+  .stat-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .stat-label { font-size: 0.72rem; color: var(--muted); width: 72px; flex-shrink: 0; text-transform: uppercase; font-weight: 700; }
+  .stat-bar-wrap { flex: 1; background: rgba(0,0,0,0.3); border-radius: 99px; height: 10px; overflow: hidden; }
+  .stat-bar { height: 100%; border-radius: 99px; transition: width 0.4s; }
+  .stat-val { font-size: 0.75rem; font-weight: 700; min-width: 36px; text-align: right; }
 
-.grandma{background:rgba(160,80,255,0.12);border:1.5px solid rgba(160,80,255,0.4);text-align:center}
-.badge-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:10px 0}
-.gbadge{background:rgba(160,80,255,0.18);border:1.5px solid #aa66ff;border-radius:40px;padding:8px 14px;font-size:clamp(12px,2.8vw,15px);font-weight:800;color:#cc88ff;animation:pulse 2s infinite}
+  /* BUTTONS */
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Bangers', cursive;
+    font-size: 1.3rem;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.1s, filter 0.1s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn:active { transform: scale(0.96); }
+  .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 4px 0 #a03000; }
+  .btn-primary:active { box-shadow: 0 1px 0 #a03000; transform: translateY(3px) scale(0.98); }
+  .btn-gold { background: var(--accent2); color: #1a0a2e; box-shadow: 0 4px 0 #8a7000; }
+  .btn-gold:active { box-shadow: 0 1px 0 #8a7000; transform: translateY(3px) scale(0.98); }
+  .btn-green { background: var(--accent3); color: #1a0a2e; box-shadow: 0 4px 0 #007040; }
+  .btn-green:active { box-shadow: 0 1px 0 #007040; transform: translateY(3px) scale(0.98); }
+  .btn-purple { background: #9b59b6; color: #fff; box-shadow: 0 4px 0 #5b2986; }
+  .btn-purple:active { box-shadow: 0 1px 0 #5b2986; transform: translateY(3px) scale(0.98); }
+  .btn-sm { font-size: 0.85rem; padding: 8px 12px; width: auto; display: inline-block; border-radius: 8px; }
 
-.pros{background:rgba(180,130,0,0.14);border:1.5px solid rgba(200,160,0,0.4)}
-.pro-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
-.pro-card{background:rgba(200,160,0,0.1);border:1px solid rgba(200,160,0,0.28);border-radius:12px;padding:14px;text-align:center;transition:transform 0.2s}
-.pro-card:hover{transform:translateY(-4px)}
-.pro-card .icon{font-size:clamp(26px,6vw,34px);display:block;margin-bottom:6px}
-.pro-card h3{font-size:clamp(13px,3vw,15px);font-weight:800;color:#d4a800}
-.pro-card p{font-size:clamp(11px,2.4vw,13px);color:#ccc;margin-top:3px;line-height:1.3}
+  /* MONEY DISPLAY */
+  .money-big {
+    font-family: 'Bangers', cursive;
+    font-size: 2rem;
+    color: var(--accent2);
+    text-align: center;
+  }
+  .money-small { font-size: 0.75rem; color: var(--muted); text-align: center; }
 
-.photo-section{text-align:center;margin:20px 0}
-.photo-btn{display:inline-block;font-family:'Bangers',cursive;font-size:clamp(20px,5vw,26px);letter-spacing:2px;padding:clamp(12px,3vw,16px) clamp(24px,6vw,40px);border-radius:50px;background:linear-gradient(135deg,#ff3388,#9900ee,#ff3388);background-size:200%;color:white;border:none;cursor:pointer;animation:pulse 1.5s infinite;box-shadow:0 0 20px rgba(200,50,120,0.5);text-decoration:none;transition:transform 0.2s}
-.photo-btn:hover{transform:scale(1.06)}
+  /* TOILET BUTTON */
+  #toilet-btn {
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff8f0, #e8d5c0);
+    border: 4px solid var(--accent2);
+    box-shadow: 0 0 0 6px rgba(255,215,0,0.2), 0 8px 0 #a03000;
+    font-size: 3.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    transition: transform 0.1s;
+    position: relative;
+    user-select: none;
+  }
+  #toilet-btn:active { transform: scale(0.93) translateY(4px); box-shadow: 0 0 0 6px rgba(255,215,0,0.2), 0 2px 0 #a03000; }
+  #toilet-btn.shaking { animation: shake 0.3s; }
+  @keyframes shake { 0%,100%{transform:rotate(0)} 25%{transform:rotate(-8deg)} 75%{transform:rotate(8deg)} }
 
-.vote-section{text-align:center;padding:clamp(20px,5vw,30px) 12px}
-.vote-btn{font-family:'Bangers',cursive;font-size:clamp(22px,5.5vw,36px);letter-spacing:2px;padding:clamp(14px,3vw,18px) clamp(28px,7vw,56px);border-radius:70px;background:linear-gradient(135deg,#c8a000,#e6b800,#c8a000);color:#1a1a2e;border:none;cursor:pointer;box-shadow:0 0 24px rgba(200,160,0,0.55);animation:pulse 1.5s infinite;transition:transform 0.2s;max-width:100%}
-.vote-btn:hover{transform:scale(1.08)}
+  /* POOP METER */
+  .poop-meter-wrap { background: rgba(0,0,0,0.4); border-radius: 99px; height: 18px; overflow: hidden; position: relative; }
+  .poop-meter-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, #8B4513, #a0522d, #cd853f); transition: width 0.2s; }
+  .poop-meter-label {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; font-weight: 900; color: #fff; text-shadow: 0 1px 2px #000;
+    pointer-events: none;
+  }
 
-.footer{text-align:center;padding:16px 12px 24px;color:#666;font-size:clamp(10px,2.4vw,12px);line-height:1.6}
-.footer span{animation:rainbow 2s linear infinite;font-weight:800}
-.confetti-piece{position:fixed;width:9px;height:9px;border-radius:2px;pointer-events:none;z-index:9999;animation:confettiFall 1.4s ease-out forwards}
+  /* TUNG-TUNG GRID */
+  .tung-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .tung-card {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+  }
+  .tung-card.owned { border-color: var(--accent3); background: rgba(0,255,136,0.07); }
+  .tung-card.equipped { border-color: var(--accent2); background: rgba(255,215,0,0.1); }
+  .tung-card.locked { opacity: 0.5; cursor: not-allowed; }
+  .tung-emoji { font-size: 2rem; display: block; margin-bottom: 4px; }
+  .tung-name { font-size: 0.7rem; font-weight: 900; color: var(--accent2); }
+  .tung-power { font-size: 0.65rem; color: var(--muted); }
+  .tung-price { font-size: 0.72rem; color: var(--accent); font-weight: 700; margin-top: 4px; }
+  .tung-badge {
+    position: absolute; top: 4px; right: 4px;
+    background: var(--accent3); color: #000;
+    font-size: 0.55rem; font-weight: 900;
+    padding: 2px 5px; border-radius: 99px;
+  }
+
+  /* VIDEO MAKING */
+  .video-type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  .video-type-btn {
+    background: rgba(0,0,0,0.3);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 6px;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.2s;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .video-type-btn.selected { border-color: var(--accent); background: rgba(255,107,53,0.15); }
+  .video-type-btn .vt-emoji { font-size: 1.5rem; display: block; margin-bottom: 3px; }
+
+  /* PROGRESS / XP */
+  .xp-bar-wrap { background: rgba(0,0,0,0.3); border-radius: 99px; height: 8px; overflow: hidden; }
+  .xp-bar { height: 100%; background: linear-gradient(90deg, #9b59b6, #e74c3c); border-radius: 99px; transition: width 0.5s; }
+
+  /* FLOATING NUMBERS */
+  .float-num {
+    position: fixed;
+    font-family: 'Bangers', cursive;
+    font-size: 1.4rem;
+    color: var(--accent2);
+    text-shadow: 1px 1px 0 #000;
+    pointer-events: none;
+    z-index: 9999;
+    animation: floatUp 1.2s ease-out forwards;
+  }
+  @keyframes floatUp {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    80% { opacity: 1; transform: translateY(-80px) scale(1.1); }
+    100% { opacity: 0; transform: translateY(-100px) scale(0.8); }
+  }
+
+  /* NAV TABS */
+  .nav-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    background: rgba(0,0,0,0.4);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 14px;
+    position: sticky; top: 0; z-index: 10;
+  }
+  .nav-tab {
+    padding: 8px 4px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+  }
+  .nav-tab .nav-icon { font-size: 1.1rem; }
+  .nav-tab.active { background: var(--card); color: var(--accent2); }
+
+  /* LEADERBOARD */
+  .lb-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    background: rgba(0,0,0,0.25);
+    font-size: 0.8rem;
+  }
+  .lb-rank { font-family: 'Bangers', cursive; font-size: 1.1rem; min-width: 28px; }
+  .lb-name { flex: 1; font-weight: 700; }
+  .lb-score { color: var(--accent2); font-weight: 900; font-size: 0.85rem; }
+  .lb-you { border: 1px solid var(--accent2); background: rgba(255,215,0,0.08); }
+
+  /* ACHIEVEMENTS */
+  .ach-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px; background: rgba(0,0,0,0.25);
+    border-radius: 10px; margin-bottom: 6px;
+  }
+  .ach-icon { font-size: 1.6rem; }
+  .ach-info { flex: 1; }
+  .ach-name { font-weight: 700; font-size: 0.8rem; }
+  .ach-desc { font-size: 0.65rem; color: var(--muted); }
+  .ach-locked { opacity: 0.35; }
+
+  /* NOTIFICATION TOAST */
+  #toast {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: var(--accent2); color: #1a0a2e;
+    font-family: 'Bangers', cursive; font-size: 1rem;
+    padding: 10px 20px; border-radius: 99px;
+    z-index: 10000;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+    max-width: 90vw;
+    text-align: center;
+  }
+  #toast.show { opacity: 1; }
+
+  /* UPGRADE SHOP */
+  .upgrade-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px; background: rgba(0,0,0,0.25);
+    border-radius: 10px; margin-bottom: 8px;
+  }
+  .upgrade-icon { font-size: 1.5rem; }
+  .upgrade-info { flex: 1; }
+  .upgrade-name { font-weight: 700; font-size: 0.8rem; }
+  .upgrade-desc { font-size: 0.65rem; color: var(--muted); }
+  .upgrade-cost { font-size: 0.7rem; color: var(--accent2); font-weight: 700; }
+
+  /* USERNAME SCREEN */
+  #username-screen {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    min-height: 100vh; padding: 24px;
+  }
+  .username-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px 20px;
+    width: 100%;
+    text-align: center;
+  }
+  .big-emoji { font-size: 5rem; display: block; margin-bottom: 12px; }
+  input[type=text], input[type=number] {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(0,0,0,0.4);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    outline: none;
+    margin: 12px 0;
+  }
+  input:focus { border-color: var(--accent2); }
+
+  /* PRESTIGE */
+  .prestige-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff6b35, #ffd700);
+    color: #1a0a2e;
+    font-family: 'Bangers', cursive;
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    border-radius: 99px;
+    letter-spacing: 1px;
+  }
+
+  /* PULSE ANIMATION */
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+  .pulse { animation: pulse 1.5s infinite; }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 0.65rem; font-weight: 900; text-transform: uppercase;
+    color: var(--muted); letter-spacing: 2px; margin-bottom: 8px;
+  }
+
+  /* VIDEO LOG */
+  .video-log-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 7px 10px; background: rgba(0,0,0,0.2);
+    border-radius: 8px; margin-bottom: 5px;
+    font-size: 0.75rem;
+  }
+  .video-log-emoji { font-size: 1.2rem; }
+  .video-log-info { flex: 1; }
+  .video-log-earn { color: var(--accent2); font-weight: 700; }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
 </style>
+</head>
+<body>
 
-<div class="stars" id="stars"></div>
-<div class="container">
+<div id="app">
+  <!-- USERNAME SETUP SCREEN -->
+  <div id="username-screen">
+    <div class="username-card">
+      <span class="big-emoji">🚽</span>
+      <div class="game-title">TUNG TUNG<br>TOILET TIME</div>
+      <div class="game-sub">The Ultimate Poop Creator</div>
+      <p style="font-size:0.85rem;color:var(--muted);margin:12px 0;">Enter your username to start your toilet career and appear on the GLOBAL LEADERBOARD!</p>
+      <input type="text" id="username-input" placeholder="Your username..." maxlength="20">
+      <p style="font-size:0.65rem;color:var(--muted);margin-bottom:12px;">Visible to all players on the leaderboard</p>
+      <button class="btn btn-gold" onclick="startGame()">START POOPING 💩</button>
+    </div>
+  </div>
 
-  <div class="vs-header">
-    <div class="vs-row">
-      <div class="mustafa-wrap">
-        <div class="crown">👑</div>
-        <div class="vs-name mustafa-name">MUSTAFA</div>
-        <div style="font-size:clamp(11px,2.5vw,13px);color:#d4a800;font-weight:800;letter-spacing:2px;margin-top:4px;">✅ THE PEOPLE'S CHAMPION</div>
+  <!-- MAIN GAME SCREEN -->
+  <div id="game-screen" class="screen">
+    <div class="game-title">🚽 TUNG TUNG</div>
+    <div class="game-sub" id="username-display">TOILET TIME</div>
+
+    <!-- STATS ROW -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+      <div class="card" style="text-align:center;padding:10px;">
+        <div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;font-weight:700;">Total Money</div>
+        <div class="money-big" id="money-display">$0</div>
       </div>
-      <div class="vs-badge">VS</div>
-      <div class="bryson-wrap">
-        <div class="vs-name bryson-name">BRYSON</div>
-        <div style="font-size:clamp(11px,2.5vw,13px);color:#ff4444;font-weight:800;letter-spacing:2px;margin-top:4px;">❌ NOT IT CHIEF</div>
+      <div class="card" style="text-align:center;padding:10px;">
+        <div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;font-weight:700;">Fans</div>
+        <div class="money-big" id="fans-display" style="color:var(--accent4);">0</div>
       </div>
     </div>
-  </div>
 
-  <div class="hero">
-    <div class="emoji-row">🎓 🏆 🎤 🍩 🚽</div>
-    <h1>VOTE MUSTAFA<br>FOR VALEDICTORIAN!</h1>
-    <div class="sub">Grade 8 Graduation · The Speech You Deserve</div>
-    <div style="margin-top:12px;font-size:clamp(13px,3vw,15px);color:#ffe088;line-height:1.6">
-      A leader. A speaker. A toilet-time advocate.<br>
-      Timbits for ALL. The future is <span style="animation:rainbow 1.5s linear infinite;font-weight:900;display:inline-block">Mustafa</span>.
+    <!-- NAV TABS -->
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="showTab('toilet')" id="tab-toilet">
+        <span class="nav-icon">🚽</span>POOP
+      </button>
+      <button class="nav-tab" onclick="showTab('studio')" id="tab-studio">
+        <span class="nav-icon">🎬</span>STUDIO
+      </button>
+      <button class="nav-tab" onclick="showTab('tungs')" id="tab-tungs">
+        <span class="nav-icon">🥁</span>TUNGS
+      </button>
+      <button class="nav-tab" onclick="showTab('board')" id="tab-board">
+        <span class="nav-icon">🏆</span>BOARD
+      </button>
     </div>
-  </div>
 
-  <div class="photo-section">
-    <a class="photo-btn" href="data:image/jpeg;base64,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" target="_blank">📸 FUN PHOTO LINK 📸</a>
-  </div>
+    <!-- TOILET TAB -->
+    <div id="tab-content-toilet">
+      <!-- XP / Level -->
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+          <span style="font-size:0.75rem;font-weight:700;">Level <span id="level-num">1</span> <span id="prestige-display"></span></span>
+          <span style="font-size:0.7rem;color:var(--muted);"><span id="xp-cur">0</span> / <span id="xp-next">100</span> XP</span>
+        </div>
+        <div class="xp-bar-wrap">
+          <div class="xp-bar" id="xp-bar" style="width:0%"></div>
+        </div>
+      </div>
 
-  <div class="section promises">
-    <div class="section-title" style="color:#00e080">👑 MUSTAFA'S PROMISES TO YOU</div>
-    <div class="promise-card">
-      <div class="p-icon">🚽</div>
-      <div class="p-text"><h3>MORE TOILET TIMES</h3><p>Your bladder deserves rights. Mustafa will fight for maximum bathroom breaks, no questions asked.</p></div>
-    </div>
-    <div class="promise-card" style="animation-delay:0.1s">
-      <div class="p-icon">🍔</div>
-      <div class="p-text"><h3>FOOD VLOGS</h3><p>Mustafa is bringing the vlog era to Grade 8. Food reviews, taste tests, cafeteria critiques — all of it.</p></div>
-    </div>
-    <div class="promise-card" style="animation-delay:0.2s">
-      <div class="p-icon">🍩</div>
-      <div class="p-text"><h3>TIMBITS FOR EVERYONE</h3><p>Not just the popular kids. EVERYONE gets Timbits. Non-negotiable.</p></div>
-    </div>
-    <div class="promise-card" style="animation-delay:0.3s">
-      <div class="p-icon">🎤</div>
-      <div class="p-text"><h3>A SPEECH THAT SLAPS</h3><p>No reading off cards. No awkward silence. Mustafa speaks from the heart.</p></div>
-    </div>
-  </div>
+      <!-- Poop Meter -->
+      <div class="card">
+        <div class="card-title">💩 Poop Meter</div>
+        <div class="poop-meter-wrap" style="margin-bottom:8px;">
+          <div class="poop-meter-fill" id="poop-bar" style="width:0%"></div>
+          <div class="poop-meter-label"><span id="poop-pct">0%</span> Full</div>
+        </div>
+        <div style="text-align:center;font-size:0.7rem;color:var(--muted);margin-bottom:10px;">
+          Poop to fill your meter! Full meter = MEGA dump bonus!
+        </div>
+        <!-- TOILET BUTTON -->
+        <div style="display:flex;justify-content:center;margin:8px 0 12px;">
+          <button id="toilet-btn" onclick="poop(event)" class="pulse">💩</button>
+        </div>
+        <!-- Stats under toilet -->
+        <div class="stat-row">
+          <span class="stat-label">Poop/tap</span>
+          <div class="stat-bar-wrap"><div class="stat-bar" id="sb-power" style="width:10%;background:#cd853f;"></div></div>
+          <span class="stat-val" id="sv-power">+<span id="poop-power-val">1</span></span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Quality</span>
+          <div class="stat-bar-wrap"><div class="stat-bar" id="sb-quality" style="width:10%;background:#e74c3c;"></div></div>
+          <span class="stat-val" id="sv-quality"><span id="quality-val">1</span>x</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Fans</span>
+          <div class="stat-bar-wrap"><div class="stat-bar" id="sb-fans" style="width:5%;background:var(--accent4);"></div></div>
+          <span class="stat-val"><span id="fans-rate-val">0</span>/vid</span>
+        </div>
+      </div>
 
-  <div class="section timbits">
-    <div class="section-title" style="color:#ff9900">🍩 THE TIMBIT PROMISE 🍩</div>
-    <p style="color:#ffcc88;font-weight:700;font-size:clamp(13px,3vw,16px);margin-bottom:10px">Every. Single. One of you. Gets. Timbits.</p>
-    <div class="timbit-row">
-      <span class="timbit" style="animation-delay:0s">🍩</span>
-      <span class="timbit" style="animation-delay:0.2s">🍩</span>
-      <span class="timbit" style="animation-delay:0.4s">🍩</span>
-      <span class="timbit" style="animation-delay:0.6s">🍩</span>
-      <span class="timbit" style="animation-delay:0.8s">🍩</span>
-      <span class="timbit" style="animation-delay:1s">🍩</span>
-      <span class="timbit" style="animation-delay:1.2s">🍩</span>
-    </div>
-    <p style="color:#aaa;font-size:clamp(11px,2.5vw,13px);margin-top:10px">Original glazed. Chocolate. Birthday cake. The whole lineup. 🎉</p>
-  </div>
+      <!-- Upgrades -->
+      <div class="card">
+        <div class="card-title">⚡ Upgrades</div>
+        <div id="upgrades-list"></div>
+      </div>
 
-  <div class="section pros">
-    <div class="section-title" style="color:#d4a800;animation:glow 2.5s infinite">⭐ WHY MUSTAFA WINS ⭐</div>
-    <div class="pro-grid">
-      <div class="pro-card"><span class="icon">🎤</span><h3>Public Speaking Pro</h3><p>Can actually talk to a crowd without freezing up</p></div>
-      <div class="pro-card"><span class="icon">👵</span><h3>Grandma Approved</h3><p>Nothing embarrassing. Safe for your whole family</p></div>
-      <div class="pro-card"><span class="icon">💪</span><h3>Self Respect</h3><p>Carries himself with dignity</p></div>
-      <div class="pro-card"><span class="icon">😎</span><h3>Actually Cool</h3><p>Not trying too hard — naturally the GOAT</p></div>
-      <div class="pro-card"><span class="icon">🤝</span><h3>Man of the People</h3><p>Feeds everyone (Timbits)</p></div>
-      <div class="pro-card"><span class="icon">🏆</span><h3>Born Leader</h3><p>Crown was always his</p></div>
+      <!-- Auto poop -->
+      <div class="card" id="auto-poop-card" style="display:none;">
+        <div class="card-title">🤖 Auto Poopers</div>
+        <div id="auto-poop-list"></div>
+      </div>
     </div>
-  </div>
 
-<div class="section cons">
-    <div class="section-title" style="color:#ffae19">❓ THE BRYSON BREAKDOWN ❓</div>
-    <div class="bryson-label">👀 CONSTRUCTIVE CRITICISM 👀</div>
-    <div class="con-card">
-      <div class="c-icon">🤫</div>
-      <div class="c-text"><h3>A Bit Too Quiet</h3><p>Might lack the loud presence needed to represent Grade 8 with high energy.</p></div>
-    </div>
-    <div class="con-card" style="animation-delay:0.1s">
-      <div class="c-icon">🎤</div>
-      <div class="c-text"><h3>Public Speaking Jitters</h3><p>Stage fright happens! But do we want someone who gets nervous for the big graduation speech?</p></div>
-    </div>
-    <div class="con-card" style="animation-delay:0.2s">
-      <div class="c-icon">🥱</div>
-      <div class="c-text"><h3>The Snooze Factor</h3><p>We need an exciting ceremony. Bryson’s style might be a little too low-key for the grandparents in the crowd.</p></div>
-    </div>
-    <div class="con-card" style="animation-delay:0.3s">
-      <div class="c-icon">🍩</div>
-      <div class="c-text"><h3>The Timbit Silence</h3><p>Bryson has made ZERO promises about Timbits. Can we really risk a donut-less year?</p></div>
-    </div>
-    <div class="con-card" style="animation-delay:0.4s">
-      <div class="c-icon">🚽</div>
-      <div class="c-text"><h3>Bathroom Break Policy?</h3><p>Has Bryson ever spoken up for longer bathroom breaks? We haven't heard anything yet.</p></div>
-    </div>
-  </div>
+    <!-- STUDIO TAB -->
+    <div id="tab-content-studio" style="display:none;">
+      <div class="card">
+        <div class="card-title">🎬 Video Studio</div>
+        <div style="font-size:0.75rem;color:var(--muted);margin-bottom:10px;">
+          Use your poop to create viral content! Each video type pays differently.
+          Your equipped Tung-Tung-Sahur boosts earnings!
+        </div>
+        <div class="section-label">Choose Video Type</div>
+        <div class="video-type-grid" id="video-type-grid"></div>
+        <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:10px;margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:4px;">
+            <span>Poop Available</span>
+            <span id="studio-poop-avail" style="color:#cd853f;font-weight:700;">0 💩</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:4px;">
+            <span>Equipped Tung</span>
+            <span id="studio-tung" style="color:var(--accent2);font-weight:700;">None</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:4px;">
+            <span>Estimated Earnings</span>
+            <span id="studio-estimate" style="color:var(--accent3);font-weight:700;">$0</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.75rem;">
+            <span>Poop Cost</span>
+            <span id="studio-cost" style="color:var(--accent);font-weight:700;">0 💩</span>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="makeVideo()" id="make-video-btn">🎬 FILM IT!</button>
+      </div>
 
-  <div class="section grandma">
-    <div class="section-title" style="color:#cc88ff">👵 GRANDMA-SAFE GUARANTEE 👵</div>
-    <p style="color:#cc88ff;font-weight:700;font-size:clamp(13px,3vw,16px);margin-bottom:12px">Mustafa's speech will NOT make you want to disappear into your seat.</p>
-    <div class="badge-row">
-      <span class="gbadge">✅ Classy</span>
-      <span class="gbadge">✅ Heartfelt</span>
-      <span class="gbadge">✅ Memorable</span>
-      <span class="gbadge">✅ No cringe</span>
-      <span class="gbadge">✅ She'll cry happy tears</span>
+      <!-- Channel Stats -->
+      <div class="card">
+        <div class="card-title">📊 Channel Stats</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:10px;text-align:center;">
+            <div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;font-weight:700;">Videos Made</div>
+            <div style="font-size:1.5rem;font-family:'Bangers',cursive;color:var(--accent2);" id="stat-videos">0</div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:10px;text-align:center;">
+            <div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;font-weight:700;">Total Views</div>
+            <div style="font-size:1.5rem;font-family:'Bangers',cursive;color:var(--accent4);" id="stat-views">0</div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:10px;text-align:center;">
+            <div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;font-weight:700;">Total Earned</div>
+            <div style="font-size:1.5rem;font-family:'Bangers',cursive;color:var(--accent3);" id="stat-earned">$0</div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:10px;text-align:center;">
+            <div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;font-weight:700;">Prestige</div>
+            <div style="font-size:1.5rem;font-family:'Bangers',cursive;color:var(--accent);" id="stat-prestige">0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Log -->
+      <div class="card">
+        <div class="card-title">📼 Recent Videos</div>
+        <div id="video-log" style="max-height:200px;overflow-y:auto;">
+          <p style="color:var(--muted);font-size:0.75rem;text-align:center;padding:10px;">No videos yet! Start filming!</p>
+        </div>
+      </div>
+
+      <!-- Prestige -->
+      <div class="card" id="prestige-card" style="display:none;">
+        <div class="card-title">✨ PRESTIGE</div>
+        <p style="font-size:0.75rem;color:var(--muted);margin-bottom:10px;">
+          Reset your progress for a permanent 2x money multiplier! Prestige <span id="prestige-count-display">0</span> times so far.
+        </p>
+        <button class="btn btn-purple" onclick="prestige()">✨ PRESTIGE (Reset for 2x!)</button>
+      </div>
     </div>
-  </div>
 
-  <div class="vote-section">
-    <div style="font-family:'Bangers',cursive;font-size:clamp(20px,5vw,26px);color:#c8a800;margin-bottom:14px;animation:glow 2.5s infinite">THE CHOICE IS CLEAR 👑</div>
-    <button class="vote-btn" onclick="launchConfetti()">🗳️ VOTE MUSTAFA! 🗳️</button>
-    <div style="color:#666;font-size:clamp(11px,2.5vw,13px);margin-top:10px">click for a celebration 🎉</div>
-  </div>
+    <!-- TUNGS TAB -->
+    <div id="tab-content-tungs" style="display:none;">
+      <div class="card">
+        <div class="card-title">🥁 Tung-Tung-Sahur Shop</div>
+        <div style="font-size:0.75rem;color:var(--muted);margin-bottom:10px;">
+          Buy and equip powerful Tung-Tung-Sahurs to boost your video earnings! Tap an owned one to equip it.
+        </div>
+        <div class="tung-grid" id="tung-grid"></div>
+      </div>
+    </div>
 
-  <div class="footer">
-    Paid for by the <span>Mustafa 2025 Graduation Campaign</span> •
-    Authorized by the Timbit Party of Grade 8 •
-    Not affiliated with Tim Hortons (but open to sponsorship)
-  </div>
-</div>
+    <!-- LEADERBOARD TAB -->
+    <div id="tab-content-board" style="display:none;">
+      <div class="card">
+        <div class="card-title">🏆 Global Leaderboard</div>
+        <div style="font-size:0.75rem;color:var(--muted);margin-bottom:10px;">
+          Top toilet content creators worldwide! Updates every video.
+        </div>
+        <div id="leaderboard-list">
+          <p style="color:var(--muted);font-size:0.75rem;text-align:center;padding:10px;">Loading leaderboard...</p>
+        </div>
+        <button class="btn btn-sm btn-gold" onclick="loadLeaderboard()" style="margin-top:8px;width:100%;">🔄 Refresh</button>
+      </div>
+
+      <!-- Achievements -->
+      <div class="card">
+        <div class="card-title">🎖️ Achievements</div>
+        <div id="achievements-list"></div>
+      </div>
+    </div>
+
+  </div><!-- end game-screen -->
+</div><!-- end app -->
+
+<div id="toast"></div>
 
 <script>
-const s=document.getElementById('stars');
-for(let i=0;i<70;i++){
-  const el=document.createElement('div');
-  el.className='star';
-  const sz=Math.random()*2.5+1;
-  el.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*3}s;animation-duration:${1.5+Math.random()*2}s`;
-  s.appendChild(el);
+// ============================================================
+// GAME DATA DEFINITIONS
+// ============================================================
+
+const TUNGS = [
+  { id:'basic', name:'Basic Drum', emoji:'🥁', multiplier:1.2, price:0, desc:'Free starter tung', unlockLevel:1 },
+  { id:'sahur', name:'Tung Tung Sahur', emoji:'🪘', multiplier:1.8, price:500, desc:'The OG sahur drum', unlockLevel:3 },
+  { id:'golden', name:'Golden Sahur', emoji:'🌟', multiplier:2.5, price:2000, desc:'Gilded and loud', unlockLevel:5 },
+  { id:'electric', name:'Electric Sahur', emoji:'⚡', multiplier:3.5, price:8000, desc:'Buzzing with power', unlockLevel:8 },
+  { id:'rainbow', name:'Rainbow Tung', emoji:'🌈', multiplier:5, price:25000, desc:'Colors = money', unlockLevel:12 },
+  { id:'alien', name:'Alien Drum', emoji:'👽', multiplier:8, price:100000, desc:'From outer poop', unlockLevel:18 },
+  { id:'cosmic', name:'Cosmic Sahur', emoji:'🌌', multiplier:15, price:500000, desc:'Universe-scale vibes', unlockLevel:25 },
+  { id:'god', name:'Tung God Drum', emoji:'☄️', multiplier:30, price:5000000, desc:'MAXIMUM TUNG', unlockLevel:40 },
+];
+
+const VIDEO_TYPES = [
+  { id:'short', name:'Tung Short', emoji:'📱', basePay:10, poopCost:5, views:50, desc:'Quick 15-sec clip' },
+  { id:'vlog', name:'Toilet Vlog', emoji:'🎥', basePay:50, poopCost:20, views:200, desc:'Full sit-down experience' },
+  { id:'reaction', name:'Poop Reaction', emoji:'😱', basePay:120, poopCost:40, views:500, desc:'React to your own dump' },
+  { id:'tutorial', name:'Poop Tutorial', emoji:'📚', basePay:250, poopCost:80, views:1000, desc:'Teach the art of sahur' },
+  { id:'challenge', name:'Tung Challenge', emoji:'🏆', basePay:600, poopCost:200, views:5000, desc:'Viral challenge video' },
+  { id:'live', name:'Live Stream', emoji:'🔴', basePay:1500, poopCost:500, views:20000, desc:'Live poop event', unlockLevel:10 },
+  { id:'movie', name:'Poop Movie', emoji:'🎬', basePay:8000, poopCost:2000, views:100000, desc:'Full feature film', unlockLevel:20 },
+  { id:'festival', name:'Tung Festival', emoji:'🎪', basePay:50000, poopCost:10000, views:1000000, desc:'Annual festival broadcast', unlockLevel:35 },
+];
+
+const UPGRADES = [
+  { id:'u1', name:'Fiber Diet', emoji:'🥦', desc:'Poop +1 per tap', effect:'poopPower', amount:1, price:50, maxLevel:10 },
+  { id:'u2', name:'Probiotic Boost', emoji:'🦠', desc:'Content quality x1.5', effect:'quality', amount:0.5, price:200, maxLevel:8 },
+  { id:'u3', name:'Viral Algorithm', emoji:'📈', desc:'+10 fans per video', effect:'fans', amount:10, price:500, maxLevel:20 },
+  { id:'u4', name:'Golden Toilet', emoji:'🚽', desc:'Poop +3 per tap', effect:'poopPower', amount:3, price:1500, maxLevel:5 },
+  { id:'u5', name:'Content Studio', emoji:'🎙️', desc:'Earning multiplier x2', effect:'earningMult', amount:1, price:5000, maxLevel:5 },
+  { id:'u6', name:'Tung School', emoji:'🎓', desc:'Drum multiplier +0.5', effect:'tungBonus', amount:0.5, price:15000, maxLevel:5 },
+  { id:'u7', name:'Poop Cannon', emoji:'💥', desc:'Poop +10 per tap', effect:'poopPower', amount:10, price:50000, maxLevel:3 },
+  { id:'u8', name:'Sahur Sponsorship', emoji:'💼', desc:'All income x3', effect:'earningMult', amount:2, price:200000, maxLevel:3 },
+];
+
+const AUTO_POOPERS = [
+  { id:'a1', name:'Baby Sahur', emoji:'👶', desc:'1 poop/sec', rate:1, price:300 },
+  { id:'a2', name:'Old Man Toilet', emoji:'👴', desc:'5 poop/sec', rate:5, price:2000 },
+  { id:'a3', name:'Poop Machine', emoji:'🤖', desc:'20 poop/sec', rate:20, price:15000 },
+  { id:'a4', name:'Sahur Factory', emoji:'🏭', desc:'100 poop/sec', rate:100, price:100000 },
+  { id:'a5', name:'Quantum Toilet', emoji:'⚛️', desc:'500 poop/sec', rate:500, price:1000000 },
+];
+
+const ACHIEVEMENTS = [
+  { id:'first_poop', name:'First Timer', emoji:'💩', desc:'Take your first poop', check: s => s.totalPoops >= 1 },
+  { id:'100_poops', name:'Poop Veteran', emoji:'🏅', desc:'Poop 100 times', check: s => s.totalPoops >= 100 },
+  { id:'first_video', name:'Content Creator', emoji:'🎬', desc:'Make your first video', check: s => s.totalVideos >= 1 },
+  { id:'10_videos', name:'YouTuber', emoji:'▶️', desc:'Make 10 videos', check: s => s.totalVideos >= 10 },
+  { id:'first_tung', name:'Drum Boy', emoji:'🥁', desc:'Buy your first Tung', check: s => s.ownedTungs.length >= 2 },
+  { id:'all_tungs', name:'Tung God', emoji:'☄️', desc:'Own all Tungs', check: s => s.ownedTungs.length >= TUNGS.length },
+  { id:'10k_money', name:'Toilet Millionaire', emoji:'💰', desc:'Earn $10,000 total', check: s => s.lifetimeEarnings >= 10000 },
+  { id:'1m_money', name:'POOP BILLIONAIRE', emoji:'🤑', desc:'Earn $1,000,000 total', check: s => s.lifetimeEarnings >= 1000000 },
+  { id:'prestige1', name:'Rebirth', emoji:'✨', desc:'Prestige once', check: s => s.prestigeCount >= 1 },
+  { id:'1m_fans', name:'Famous Pooper', emoji:'⭐', desc:'Get 1,000 fans', check: s => s.totalFans >= 1000 },
+];
+
+// ============================================================
+// GAME STATE
+// ============================================================
+
+const DEFAULT_STATE = {
+  username: '',
+  money: 0,
+  poop: 0,
+  poopMeter: 0, // 0-100
+  level: 1,
+  xp: 0,
+  totalPoops: 0,
+  totalVideos: 0,
+  totalViews: 0,
+  lifetimeEarnings: 0,
+  totalFans: 0,
+  fans: 0,
+  prestigeCount: 0,
+  prestigeMultiplier: 1,
+  equippedTung: 'basic',
+  ownedTungs: ['basic'],
+  upgradelevels: {}, // id -> level
+  autoPoopers: {}, // id -> count
+  selectedVideoType: 'short',
+  completedAchievements: [],
+  videoLog: [],
+};
+
+let G = { ...DEFAULT_STATE };
+
+function saveGame() {
+  try { localStorage.setItem('tung_tung_save', JSON.stringify(G)); } catch(e) {}
 }
-function launchConfetti(){
-  const colors=['#c8a800','#ff4488','#00dd77','#44aaff','#ff7700','#aa00ff'];
-  for(let i=0;i<50;i++){
-    setTimeout(()=>{
-      const el=document.createElement('div');
-      el.className='confetti-piece';
-      el.style.cssText=`left:${Math.random()*100}vw;top:${Math.random()*15}vh;background:${colors[Math.floor(Math.random()*colors.length)]};animation-delay:${Math.random()*0.4}s;animation-duration:${1+Math.random()}s;transform:rotate(${Math.random()*360}deg)`;
-      document.body.appendChild(el);
-      setTimeout(()=>el.remove(),1800);
-    },i*25);
+
+function loadGame() {
+  try {
+    const s = localStorage.getItem('tung_tung_save');
+    if (s) { G = { ...DEFAULT_STATE, ...JSON.parse(s) }; return true; }
+  } catch(e) {}
+  return false;
+}
+
+// ============================================================
+// COMPUTED STATS
+// ============================================================
+
+function getPoopPower() {
+  let power = 1;
+  for (const u of UPGRADES.filter(u => u.effect === 'poopPower')) {
+    const lvl = G.upgradelevels[u.id] || 0;
+    power += u.amount * lvl;
+  }
+  return Math.floor(power);
+}
+
+function getQuality() {
+  let q = 1;
+  for (const u of UPGRADES.filter(u => u.effect === 'quality')) {
+    const lvl = G.upgradelevels[u.id] || 0;
+    q += u.amount * lvl;
+  }
+  return q;
+}
+
+function getFansPerVideo() {
+  let f = 1;
+  for (const u of UPGRADES.filter(u => u.effect === 'fans')) {
+    const lvl = G.upgradelevels[u.id] || 0;
+    f += u.amount * lvl;
+  }
+  return Math.floor(f);
+}
+
+function getEarningMult() {
+  let m = 1;
+  for (const u of UPGRADES.filter(u => u.effect === 'earningMult')) {
+    const lvl = G.upgradelevels[u.id] || 0;
+    m += u.amount * lvl;
+  }
+  return m;
+}
+
+function getTungBonus() {
+  let b = 0;
+  for (const u of UPGRADES.filter(u => u.effect === 'tungBonus')) {
+    const lvl = G.upgradelevels[u.id] || 0;
+    b += u.amount * lvl;
+  }
+  return b;
+}
+
+function getTungMultiplier() {
+  const tung = TUNGS.find(t => t.id === G.equippedTung);
+  return (tung ? tung.multiplier : 1) + getTungBonus();
+}
+
+function getAutoPoopRate() {
+  let rate = 0;
+  for (const [id, count] of Object.entries(G.autoPoopers || {})) {
+    const ap = AUTO_POOPERS.find(a => a.id === id);
+    if (ap) rate += ap.rate * count;
+  }
+  return rate;
+}
+
+function getXPForLevel(level) { return Math.floor(100 * Math.pow(1.4, level - 1)); }
+
+// ============================================================
+// CORE ACTIONS
+// ============================================================
+
+function poop(e) {
+  const power = getPoopPower();
+  G.poop += power;
+  G.totalPoops += power;
+  G.poopMeter = Math.min(100, G.poopMeter + power * 0.5);
+
+  // XP
+  gainXP(1 + Math.floor(power / 5));
+
+  // Mega bonus at 100
+  if (G.poopMeter >= 100) {
+    G.poopMeter = 0;
+    G.poop += 100;
+    G.totalPoops += 100;
+    spawnFloat(e.clientX, e.clientY, '💥 MEGA DUMP! +100💩');
+    showToast('💥 MEGA DUMP! Bonus poop earned!');
+  } else {
+    spawnFloat(e.clientX, e.clientY, `+${power}💩`);
+  }
+
+  const btn = document.getElementById('toilet-btn');
+  btn.classList.add('shaking');
+  setTimeout(() => btn.classList.remove('shaking'), 300);
+
+  checkAchievements();
+  updateUI();
+  saveGame();
+}
+
+function gainXP(amt) {
+  G.xp += amt;
+  const needed = getXPForLevel(G.level);
+  if (G.xp >= needed) {
+    G.xp -= needed;
+    G.level++;
+    showToast(`🎉 LEVEL UP! Now level ${G.level}!`);
+    updateShop();
+    if (G.level >= 10) document.getElementById('prestige-card').style.display = '';
   }
 }
+
+function makeVideo() {
+  const vt = VIDEO_TYPES.find(v => v.id === G.selectedVideoType);
+  if (!vt) return;
+  if (vt.unlockLevel && G.level < vt.unlockLevel) { showToast(`Need level ${vt.unlockLevel} to film this!`); return; }
+  if (G.poop < vt.poopCost) { showToast(`Need ${vt.poopCost} 💩 to make this video!`); return; }
+
+  G.poop -= vt.poopCost;
+  const tungMult = getTungMultiplier();
+  const quality = getQuality();
+  const earningMult = getEarningMult();
+  const prestige = G.prestigeMultiplier;
+
+  // Random views variance
+  const variance = 0.7 + Math.random() * 0.6;
+  const views = Math.floor(vt.views * variance * (1 + G.fans / 10000));
+  const earned = Math.floor(vt.basePay * tungMult * quality * earningMult * prestige * variance);
+
+  G.money += earned;
+  G.lifetimeEarnings += earned;
+  G.totalVideos++;
+  G.totalViews += views;
+  G.fans += getFansPerVideo();
+  G.totalFans += getFansPerVideo();
+
+  gainXP(5 + Math.floor(earned / 100));
+
+  // Log video
+  const logEntry = { emoji: vt.emoji, name: vt.name, earned, views, time: Date.now() };
+  G.videoLog.unshift(logEntry);
+  if (G.videoLog.length > 20) G.videoLog.pop();
+
+  showToast(`${vt.emoji} ${vt.name}: +$${fmtNum(earned)} (${fmtNum(views)} views)!`);
+
+  checkAchievements();
+  pushLeaderboard();
+  updateUI();
+  renderVideoLog();
+  saveGame();
+}
+
+function prestige() {
+  if (!confirm('PRESTIGE: Reset all progress but get 2x permanent money multiplier forever?')) return;
+  const prevPrestige = G.prestigeCount;
+  G.prestigeCount = prevPrestige + 1;
+  G.prestigeMultiplier = Math.pow(2, G.prestigeCount);
+  const username = G.username;
+  const ach = G.completedAchievements;
+  const vids = G.totalVideos;
+  const fans = G.totalFans;
+  const lifetime = G.lifetimeEarnings;
+  G = { ...DEFAULT_STATE };
+  G.username = username;
+  G.completedAchievements = ach;
+  G.prestigeCount = prevPrestige + 1;
+  G.prestigeMultiplier = Math.pow(2, G.prestigeCount);
+  G.totalVideos = vids;
+  G.totalFans = fans;
+  G.lifetimeEarnings = lifetime;
+  G.ownedTungs = ['basic'];
+  G.equippedTung = 'basic';
+  showToast(`✨ PRESTIGE x${G.prestigeCount}! Now ${G.prestigeMultiplier}x money forever!`);
+  pushLeaderboard();
+  updateUI();
+  saveGame();
+}
+
+function buyTung(id) {
+  const tung = TUNGS.find(t => t.id === id);
+  if (!tung) return;
+  if (G.ownedTungs.includes(id)) {
+    G.equippedTung = id;
+    showToast(`${tung.emoji} ${tung.name} equipped!`);
+  } else {
+    if (G.level < tung.unlockLevel) { showToast(`Need level ${tung.unlockLevel}!`); return; }
+    if (G.money < tung.price) { showToast(`Need $${fmtNum(tung.price)}!`); return; }
+    G.money -= tung.price;
+    G.ownedTungs.push(id);
+    G.equippedTung = id;
+    showToast(`${tung.emoji} ${tung.name} purchased!`);
+  }
+  checkAchievements();
+  updateUI();
+  saveGame();
+}
+
+function buyUpgrade(id) {
+  const up = UPGRADES.find(u => u.id === id);
+  if (!up) return;
+  const curLevel = G.upgradelevels[id] || 0;
+  if (curLevel >= up.maxLevel) { showToast('Max level!'); return; }
+  const cost = Math.floor(up.price * Math.pow(2, curLevel));
+  if (G.money < cost) { showToast(`Need $${fmtNum(cost)}!`); return; }
+  G.money -= cost;
+  G.upgradelevels[id] = curLevel + 1;
+  showToast(`${up.emoji} ${up.name} upgraded to level ${curLevel + 1}!`);
+  updateUI();
+  saveGame();
+}
+
+function buyAutoPoop(id) {
+  const ap = AUTO_POOPERS.find(a => a.id === id);
+  if (!ap) return;
+  const count = G.autoPoopers[id] || 0;
+  const cost = Math.floor(ap.price * Math.pow(1.5, count));
+  if (G.money < cost) { showToast(`Need $${fmtNum(cost)}!`); return; }
+  G.money -= cost;
+  G.autoPoopers[id] = count + 1;
+  showToast(`${ap.emoji} ${ap.name} hired!`);
+  updateUI();
+  saveGame();
+}
+
+function selectVideoType(id) {
+  G.selectedVideoType = id;
+  renderVideoTypeGrid();
+  updateStudioInfo();
+}
+
+// ============================================================
+// AUTO POOP LOOP
+// ============================================================
+
+setInterval(() => {
+  const rate = getAutoPoopRate();
+  if (rate > 0) {
+    G.poop += rate;
+    G.totalPoops += rate;
+    G.poopMeter = Math.min(100, G.poopMeter + rate * 0.2);
+    updateUI();
+  }
+}, 1000);
+
+// ============================================================
+// ACHIEVEMENTS
+// ============================================================
+
+function checkAchievements() {
+  for (const ach of ACHIEVEMENTS) {
+    if (!G.completedAchievements.includes(ach.id) && ach.check(G)) {
+      G.completedAchievements.push(ach.id);
+      showToast(`🎖️ Achievement Unlocked: ${ach.name}!`);
+    }
+  }
+  renderAchievements();
+}
+
+// ============================================================
+// LEADERBOARD (via Anthropic API persistent storage)
+// ============================================================
+
+async function pushLeaderboard() {
+  try {
+    const entry = {
+      username: G.username,
+      money: G.lifetimeEarnings,
+      videos: G.totalVideos,
+      fans: G.totalFans,
+      prestige: G.prestigeCount,
+      level: G.level,
+      ts: Date.now(),
+    };
+    await window.storage.set('lb_' + G.username.toLowerCase().replace(/[^a-z0-9]/g,'_'), JSON.stringify(entry), true);
+  } catch(e) {}
+}
+
+async function loadLeaderboard() {
+  const el = document.getElementById('leaderboard-list');
+  el.innerHTML = '<p style="color:var(--muted);font-size:0.75rem;text-align:center;padding:10px;">Loading...</p>';
+  try {
+    const result = await window.storage.list('lb_', true);
+    if (!result || !result.keys || result.keys.length === 0) {
+      el.innerHTML = '<p style="color:var(--muted);font-size:0.75rem;text-align:center;padding:10px;">No players yet! You could be first!</p>';
+      return;
+    }
+    const entries = [];
+    for (const key of result.keys) {
+      try {
+        const r = await window.storage.get(key, true);
+        if (r && r.value) entries.push(JSON.parse(r.value));
+      } catch(e) {}
+    }
+    entries.sort((a, b) => b.money - a.money);
+    const top = entries.slice(0, 50);
+    const medals = ['🥇', '🥈', '🥉'];
+    el.innerHTML = top.map((e, i) => {
+      const isYou = e.username.toLowerCase() === G.username.toLowerCase();
+      return `<div class="lb-row ${isYou ? 'lb-you' : ''}">
+        <span class="lb-rank">${medals[i] || (i + 1)}</span>
+        <span class="lb-name">${escHtml(e.username)} ${isYou ? '⬅️ YOU' : ''}</span>
+        <div style="text-align:right;">
+          <div class="lb-score">$${fmtNum(e.money)}</div>
+          <div style="font-size:0.6rem;color:var(--muted);">Lv.${e.level} · ${e.videos} vids · P${e.prestige}</div>
+        </div>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    el.innerHTML = '<p style="color:var(--muted);font-size:0.75rem;text-align:center;padding:10px;">Could not load leaderboard.</p>';
+  }
+}
+
+// ============================================================
+// UI RENDERING
+// ============================================================
+
+function fmtNum(n) {
+  if (n >= 1e9) return (n/1e9).toFixed(1) + 'B';
+  if (n >= 1e6) return (n/1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return (n/1e3).toFixed(1) + 'K';
+  return Math.floor(n).toLocaleString();
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function updateUI() {
+  document.getElementById('money-display').textContent = '$' + fmtNum(G.money);
+  document.getElementById('fans-display').textContent = fmtNum(G.fans);
+  document.getElementById('level-num').textContent = G.level;
+  const needed = getXPForLevel(G.level);
+  document.getElementById('xp-cur').textContent = G.xp;
+  document.getElementById('xp-next').textContent = needed;
+  document.getElementById('xp-bar').style.width = Math.min(100, G.xp / needed * 100) + '%';
+  document.getElementById('poop-bar').style.width = G.poopMeter + '%';
+  document.getElementById('poop-pct').textContent = Math.floor(G.poopMeter) + '%';
+
+  const pp = getPoopPower();
+  const q = getQuality();
+  document.getElementById('poop-power-val').textContent = pp;
+  document.getElementById('quality-val').textContent = q.toFixed(1);
+  document.getElementById('fans-rate-val').textContent = getFansPerVideo();
+  document.getElementById('sb-power').style.width = Math.min(100, pp / 30 * 100) + '%';
+  document.getElementById('sb-quality').style.width = Math.min(100, q / 10 * 100) + '%';
+  document.getElementById('sb-fans').style.width = Math.min(100, getFansPerVideo() / 200 * 100) + '%';
+
+  // Prestige
+  const pd = document.getElementById('prestige-display');
+  if (G.prestigeCount > 0) pd.innerHTML = `<span class="prestige-badge">P${G.prestigeCount}</span>`;
+  else pd.innerHTML = '';
+  document.getElementById('prestige-count-display').textContent = G.prestigeCount;
+  document.getElementById('stat-prestige').textContent = G.prestigeCount;
+
+  // Studio
+  document.getElementById('studio-poop-avail').textContent = Math.floor(G.poop) + ' 💩';
+  const equippedT = TUNGS.find(t => t.id === G.equippedTung);
+  document.getElementById('studio-tung').textContent = equippedT ? `${equippedT.emoji} ${equippedT.name}` : 'None';
+
+  const selVT = VIDEO_TYPES.find(v => v.id === G.selectedVideoType);
+  if (selVT) {
+    const est = Math.floor(selVT.basePay * getTungMultiplier() * getQuality() * getEarningMult() * G.prestigeMultiplier);
+    document.getElementById('studio-estimate').textContent = '$' + fmtNum(est);
+    document.getElementById('studio-cost').textContent = selVT.poopCost + ' 💩';
+  }
+
+  document.getElementById('stat-videos').textContent = fmtNum(G.totalVideos);
+  document.getElementById('stat-views').textContent = fmtNum(G.totalViews);
+  document.getElementById('stat-earned').textContent = '$' + fmtNum(G.lifetimeEarnings);
+
+  // Auto poop section
+  const autoRate = getAutoPoopRate();
+  if (autoRate > 0 || G.level >= 5) {
+    document.getElementById('auto-poop-card').style.display = '';
+    renderAutoPoopList();
+  }
+
+  renderUpgradesList();
+  renderTungGrid();
+  updateStudioInfo();
+}
+
+function updateStudioInfo() {
+  const selVT = VIDEO_TYPES.find(v => v.id === G.selectedVideoType);
+  if (!selVT) return;
+  const est = Math.floor(selVT.basePay * getTungMultiplier() * getQuality() * getEarningMult() * G.prestigeMultiplier);
+  document.getElementById('studio-estimate').textContent = '$' + fmtNum(est);
+  document.getElementById('studio-cost').textContent = selVT.poopCost + ' 💩';
+}
+
+function renderUpgradesList() {
+  const el = document.getElementById('upgrades-list');
+  el.innerHTML = UPGRADES.map(up => {
+    const curLvl = G.upgradelevels[up.id] || 0;
+    const cost = Math.floor(up.price * Math.pow(2, curLvl));
+    const maxed = curLvl >= up.maxLevel;
+    return `<div class="upgrade-row">
+      <span class="upgrade-icon">${up.emoji}</span>
+      <div class="upgrade-info">
+        <div class="upgrade-name">${up.name} <span style="color:var(--muted);font-size:0.7rem;">${curLvl}/${up.maxLevel}</span></div>
+        <div class="upgrade-desc">${up.desc}</div>
+        <div class="upgrade-cost">${maxed ? '✅ MAXED' : '$' + fmtNum(cost)}</div>
+      </div>
+      <button class="btn btn-sm btn-${maxed ? 'purple' : 'gold'}" onclick="buyUpgrade('${up.id}')" ${maxed ? 'disabled' : ''}>${maxed ? 'MAX' : 'BUY'}</button>
+    </div>`;
+  }).join('');
+}
+
+function renderAutoPoopList() {
+  const el = document.getElementById('auto-poop-list');
+  el.innerHTML = AUTO_POOPERS.map(ap => {
+    const count = G.autoPoopers[ap.id] || 0;
+    const cost = Math.floor(ap.price * Math.pow(1.5, count));
+    return `<div class="upgrade-row">
+      <span class="upgrade-icon">${ap.emoji}</span>
+      <div class="upgrade-info">
+        <div class="upgrade-name">${ap.name} <span style="color:var(--muted);font-size:0.7rem;">x${count}</span></div>
+        <div class="upgrade-desc">${ap.desc}</div>
+        <div class="upgrade-cost">$${fmtNum(cost)}</div>
+      </div>
+      <button class="btn btn-sm btn-green" onclick="buyAutoPoop('${ap.id}')">HIRE</button>
+    </div>`;
+  }).join('');
+}
+
+function renderTungGrid() {
+  const el = document.getElementById('tung-grid');
+  el.innerHTML = TUNGS.map(t => {
+    const owned = G.ownedTungs.includes(t.id);
+    const equipped = G.equippedTung === t.id;
+    const locked = !owned && G.level < t.unlockLevel;
+    return `<div class="tung-card ${owned ? 'owned' : ''} ${equipped ? 'equipped' : ''} ${locked ? 'locked' : ''}"
+      onclick="buyTung('${t.id}')">
+      ${equipped ? '<span class="tung-badge">ON</span>' : ''}
+      <span class="tung-emoji">${t.emoji}</span>
+      <div class="tung-name">${t.name}</div>
+      <div class="tung-power">${t.multiplier}x earnings</div>
+      <div class="tung-price">${owned ? (equipped ? '✅ Equipped' : 'Tap to equip') : (locked ? `Lv.${t.unlockLevel} needed` : '$' + fmtNum(t.price))}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderVideoTypeGrid() {
+  const el = document.getElementById('video-type-grid');
+  if (!el) return;
+  el.innerHTML = VIDEO_TYPES.map(vt => {
+    const locked = vt.unlockLevel && G.level < vt.unlockLevel;
+    return `<button class="video-type-btn ${G.selectedVideoType === vt.id ? 'selected' : ''}" onclick="selectVideoType('${vt.id}')" ${locked ? 'disabled style="opacity:0.4"' : ''}>
+      <span class="vt-emoji">${vt.emoji}</span>
+      ${vt.name}
+      <div style="font-size:0.6rem;color:var(--muted);margin-top:2px;">${locked ? `Lv.${vt.unlockLevel}` : vt.desc}</div>
+    </button>`;
+  }).join('');
+}
+
+function renderVideoLog() {
+  const el = document.getElementById('video-log');
+  if (!G.videoLog.length) return;
+  el.innerHTML = G.videoLog.map(v =>
+    `<div class="video-log-item">
+      <span class="video-log-emoji">${v.emoji}</span>
+      <div class="video-log-info">
+        <div style="font-weight:700;">${v.name}</div>
+        <div style="color:var(--muted);font-size:0.65rem;">${fmtNum(v.views)} views</div>
+      </div>
+      <span class="video-log-earn">+$${fmtNum(v.earned)}</span>
+    </div>`
+  ).join('');
+}
+
+function renderAchievements() {
+  const el = document.getElementById('achievements-list');
+  el.innerHTML = ACHIEVEMENTS.map(a => {
+    const done = G.completedAchievements.includes(a.id);
+    return `<div class="ach-row ${done ? '' : 'ach-locked'}">
+      <span class="ach-icon">${a.emoji}</span>
+      <div class="ach-info">
+        <div class="ach-name">${a.name}</div>
+        <div class="ach-desc">${a.desc}</div>
+      </div>
+      ${done ? '<span style="color:var(--accent3);font-size:1rem;">✅</span>' : '<span style="color:var(--muted);font-size:0.8rem;">🔒</span>'}
+    </div>`;
+  }).join('');
+}
+
+function updateShop() { renderTungGrid(); renderUpgradesList(); renderVideoTypeGrid(); }
+
+// ============================================================
+// UI INTERACTIONS
+// ============================================================
+
+function showTab(tab) {
+  ['toilet','studio','tungs','board'].forEach(t => {
+    document.getElementById(`tab-content-${t}`).style.display = t === tab ? '' : 'none';
+    document.getElementById(`tab-${t}`).classList.toggle('active', t === tab);
+  });
+  if (tab === 'board') { loadLeaderboard(); renderAchievements(); }
+  if (tab === 'studio') { renderVideoTypeGrid(); updateStudioInfo(); renderVideoLog(); }
+  if (tab === 'tungs') renderTungGrid();
+}
+
+function spawnFloat(x, y, txt) {
+  const el = document.createElement('div');
+  el.className = 'float-num';
+  el.textContent = txt;
+  el.style.left = (x - 40) + 'px';
+  el.style.top = (y - 20) + 'px';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1300);
+}
+
+let toastTimer;
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+// ============================================================
+// GAME START
+// ============================================================
+
+function startGame() {
+  const un = document.getElementById('username-input').value.trim();
+  if (!un || un.length < 2) { showToast('Username must be at least 2 characters!'); return; }
+  G.username = un;
+  document.getElementById('username-screen').style.display = 'none';
+  document.getElementById('game-screen').classList.add('active');
+  document.getElementById('username-display').textContent = '🎮 ' + un.toUpperCase();
+  initGame();
+}
+
+function initGame() {
+  renderVideoTypeGrid();
+  renderAchievements();
+  updateUI();
+  pushLeaderboard();
+  // Show auto poop at level 5+
+  if (G.level >= 5) document.getElementById('auto-poop-card').style.display = '';
+  // Prestige at level 10+
+  if (G.level >= 10) document.getElementById('prestige-card').style.display = '';
+}
+
+// ============================================================
+// BOOT
+// ============================================================
+
+window.addEventListener('DOMContentLoaded', () => {
+  const saved = loadGame();
+  if (saved && G.username) {
+    document.getElementById('username-screen').style.display = 'none';
+    document.getElementById('game-screen').classList.add('active');
+    document.getElementById('username-display').textContent = '🎮 ' + G.username.toUpperCase();
+    initGame();
+    showToast('Welcome back, ' + G.username + '!');
+  }
+});
 </script>
+</body>
+</html>
